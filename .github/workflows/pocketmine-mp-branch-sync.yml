@@ -38,10 +38,10 @@ jobs:
     - name: Get sync option
       id: choice
       run: |
-        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || [[ "${{ github.event_name }}" == "workflow_call" ]]; then
-          echo "branch=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
-        elif [[ "${{ github.event_name }}" == "schedule" ]]; then
+        if [[ "${{ github.event_name }}" == "schedule" ]]; then
           echo "branch=*" >> $GITHUB_OUTPUT
+        elif [[ "${{ github.event.inputs.branch }}" != "" ]]; then
+          echo "branch=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
         else
           echo "::error Unexpected event type ${{ github.event_name }}"
           exit 1
