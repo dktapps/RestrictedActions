@@ -5,7 +5,7 @@ on:
     types: pocketmine_mp_post_release
 
 jobs:
-  post-release:
+  post-release-commit:
     name: Update version info post-release
     runs-on: ubuntu-latest
 
@@ -52,3 +52,8 @@ jobs:
         working-directory: ${{ github.workspace }}/pocketmine-mp
         run: git push
 
+  branch-sync:
+    name: Sync primary branches
+    uses: ./.github/workflows/pocketmine-mp-branch-sync.yml
+    with:
+      branch: "*"
