@@ -11,6 +11,12 @@ on:
           - "*"
           - minor-next
           - major-next
+  workflow_call:
+    inputs:
+      branch:
+        description: 'Branch to update'
+        required: true
+        type: string
   schedule:
     - cron: "0 0 * * *"
 
@@ -32,7 +38,7 @@ jobs:
     - name: Get sync option
       id: choice
       run: |
-        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]] || [[ "${{ github.event_name }}" == "workflow_call" ]]; then
           echo "branch=${{ github.event.inputs.branch }}" >> $GITHUB_OUTPUT
         elif [[ "${{ github.event_name }}" == "schedule" ]]; then
           echo "branch=*" >> $GITHUB_OUTPUT
