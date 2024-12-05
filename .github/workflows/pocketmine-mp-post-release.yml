@@ -54,6 +54,8 @@ jobs:
 
   branch-sync:
     name: Sync primary branches
+    needs: [post-release-commit]
     uses: ./.github/workflows/pocketmine-mp-branch-sync.yml
     with:
       branch: "*"
+    secrets: inherit
